@@ -40,6 +40,7 @@ Many targets are supported:
 - [ConEmu](#conemu)
 - [Vim :terminal](#vim-terminal)
 - [NeoVim :terminal](#neovim-terminal)
+- [wezterm](#wezterm)
 
 Installation
 ------------
@@ -307,6 +308,18 @@ To manually check the right value of `job-id` to use, try:
     echo &channel
 
 from the buffer running your terminal.
+
+### wezterm
+
+[Wezterm](https://wezfurlong.org/wezterm/index.html) is *not* the default, to use it you will have to add this line to your .vimrc:
+
+    let g:slime_target = "wezterm"
+
+When you invoke vim-slime for the first time, you will be prompted
+for more configuration.
+
+You can get the pane ID of the pane you wish to send text to using 
+`wezterm cli list` or running `echo $WETZTERM_PANE` in the target pane.
 
 Advanced Configuration
 ----------------------

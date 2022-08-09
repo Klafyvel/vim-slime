@@ -286,6 +286,25 @@ function! s:DtachConfig() abort
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Wezterm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:WeztermSend(config, text)
+  " You can get the pane ID using `wezterm cli list`
+  " or running `echo $WETZTERM_PANE` in the target 
+  " pane.
+  let l:paneid = a:config["pane_id"]
+
+  return system("wezterm cli send-text --pane-id " . l:paneid, a:text)
+endfunction
+
+function! s:WeztermConfig() abort
+  if !exists("b:slime_config")
+    let b:slime_config = {"pane_id": "0"}
+  end
+  let b:slime_config["pane_id"] = input("Wezterm pane ID: ", b:slime_config["pane_id"])
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Helpers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -464,4 +483,3 @@ function! s:SlimeDispatch(name, ...)
   let target = substitute(tolower(g:slime_target), '\(.\)', '\u\1', '') " Capitalize
   return call("s:" . target . a:name, a:000)
 endfunction
-
